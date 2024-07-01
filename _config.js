@@ -7,3 +7,4 @@ config.mongoURI = {
     test: 'mongodb+srv://iankurao:valley54321@cluster0.peqbmwr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
 }
 module.exports = config;
+
