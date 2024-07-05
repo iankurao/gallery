@@ -4,20 +4,26 @@ pipeline{
     environment {
         MONGO_URI = 'mongodb+srv://iankurao:valley54321@cluster0.mongodb.net/darkroom?retryWrites=true&w=majority'
         SLACK_CHANNEL = 'gallery_ip1' // Specify your Slack channel
+        EMAIL_RECIPIENT = 'ian.kurao@student.moringaschool.com'
     }  
     stages{        
-         stage('Checkout Master branch'){
-            steps{
-                checkout scm:[$class:'GitSCM', branches:[[name: '*/master']], userRemoteConfigs:'git-cridentials']
-       
+         stage('Clone repository') {
+            steps {
+                echo 'Cloning repository...'
+                git 'https://github.com/iankurao/gallery.git'
             }
-           }
-
+        }
           stage('Install Dependencies') {
              steps {
                sh 'npm install'
              }
           }
+          stage('install mocha and chai'){
+            steps{
+                echo 'other dependencies...'
+                sh 'npm install --save-dev mocha chai chai-http'
+              }
+          }  
           stage('Run Tests') {
             steps {
               sh 'npm test'
