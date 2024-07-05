@@ -5,7 +5,7 @@ pipeline{
         MONGO_URI = 'mongodb+srv://iankurao:valley54321@cluster0.mongodb.net/darkroom?retryWrites=true&w=majority'
         SLACK_CHANNEL = 'gallery_ip1' // Specify your Slack channel
         EMAIL_RECIPIENT = 'ian.kurao@student.moringaschool.com'
-    }  
+      }  
     stages{        
          stage('Clone repository') {
             steps {
