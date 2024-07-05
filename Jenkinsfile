@@ -1,12 +1,19 @@
-pipeline {
-  agent any
+pipeline{
+    agent any
+     tools {  nodejs 'nodejs'  }
+    stages{        
+         stage('Checkout Master branch'){
+            steps{
+                checkout scm:[$class:'GitSCM', branches:[[name: '*/master']], userRemoteConfigs:'git-cridentials']
+       
+            }
+           }
 
-  stages {
-    stage('Install Dependencies') {
-      steps {
-        sh 'npm install'
-      }
-    }
+          stage('Install Dependencies') {
+             steps {
+               sh 'npm install'
+             }
+          }
     stage('Run Tests') {
       steps {
         sh 'npm test'
