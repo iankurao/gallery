@@ -14,17 +14,17 @@ pipeline{
                sh 'npm install'
              }
           }
-    stage('Run Tests') {
-      steps {
-        sh 'npm test'
-      }
-    }
-    stage('Deploy to Render') {
-      steps {
-        sh 'node server.js'
-      }
-    }
-  }
+          stage('Run Tests') {
+            steps {
+              sh 'npm test'
+             }
+          }
+         stage('Deploy to Render') {
+           steps {
+              sh 'node server.js'
+             }
+          }
+     }
 
   post {
     failure {
