@@ -1,41 +1,32 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('Clone Repository') {
-            steps {
-                git url: 'https://github.com/yourusername/yourrepository.git', branch: 'master'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'npm run build'
-            }
-        }
-
-        stage('Deploy to Render') {
-            steps {
-                sh 'node server.js'
-            }
-        }
-
-        stage('Milestone 2 Change') {
-            steps {
-                sh 'echo "MILESTONE 2" >> public/index.html'
-            }
-        }
+  stages {
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
     }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
-        }
+    stage('Run Tests') {
+      steps {
+        sh 'npm test'
+      }
     }
+    stage('Deploy to Render') {
+      steps {
+        sh 'node server.js'
+      }
+    }
+  }
+
+  post {
+    failure {
+      mail to: 'you@example.com',
+           subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+           body: "Something went wrong. Please check the build logs."
+    }
+    always {
+      echo 'Pipeline finished.'
+    }
+  }
 }
