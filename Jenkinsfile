@@ -3,7 +3,7 @@ pipeline{
      tools {  nodejs 'nodejs'  }
     environment {
         MONGO_URI = 'mongodb+srv://iankurao:valley54321@cluster0.mongodb.net/darkroom?retryWrites=true&w=majority'
-        SLACK_CHANNEL = '#YourFirstName_IP1' // Specify your Slack channel
+        SLACK_CHANNEL = 'gallery_ip1' // Specify your Slack channel
     }  
     stages{        
          stage('Checkout Master branch'){
@@ -40,4 +40,16 @@ pipeline{
       echo 'Pipeline finished.'
     }
   }
+
+ post {
+        success {
+            slackSend(channel: env.SLACK_CHANNEL, message: "Build ${env.BUILD_NUMBER} succeeded. Check it out at ${env.BUILD_URL}")
+        }
+        failure {
+            slackSend(channel: env.SLACK_CHANNEL, message: "Build ${env.BUILD_NUMBER} failed. Check Jenkins for details.")
+            mail to: 'your-email@example.com',
+                subject: "Build Failed in Jenkins: ${env.JOB_NAME} [${env.BUILD_NUMBER}]",
+                body: "Build ${env.BUILD_NUMBER} failed. Check Jenkins for details."
+        }
+    }
 }
