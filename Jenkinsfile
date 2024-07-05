@@ -21,7 +21,7 @@ pipeline {
 
   post {
     failure {
-      mail to: 'you@example.com',
+      mail to: 'ian.kurao@student.moringaschool.com',
            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
            body: "Something went wrong. Please check the build logs."
     }
