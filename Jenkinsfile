@@ -1,6 +1,10 @@
 pipeline{
     agent any
      tools {  nodejs 'nodejs'  }
+    environment {
+        MONGO_URI = 'mongodb+srv://iankurao:valley54321@cluster0.mongodb.net/darkroom?retryWrites=true&w=majority'
+        SLACK_CHANNEL = '#YourFirstName_IP1' // Specify your Slack channel
+    }  
     stages{        
          stage('Checkout Master branch'){
             steps{
